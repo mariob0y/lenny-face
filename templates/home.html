@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+   <body>
+      <title>( ͡° ͜ʖ ͡°)</title>
+      <button onclick="myFunction()" style="background: none; border: none;">
+         <div id="face" style="font-size: 200px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            margin-top: -100px;
+            margin-left: -200px;">( ͡° ͜ʖ ͡°)</div>
+      </button>
+      <script>
+         function myFunction() {
+           const btn = document.getElementById('face');
+           btn.addEventListener('click', function onClick(event) {
+           const randomColor = Math.floor(Math.random()*16777215).toString(16);
+         document.body.style.backgroundColor = "#" + randomColor;
+         });
+           navigator.clipboard.writeText("( ͡° ͜ʖ ͡°)");
+         }
+      </script>
+   </body>
+</html>
