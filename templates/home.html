@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
    <body>
-      <title>( ͡° ͜ʖ ͡°)</title>
-      <button onclick="myFunction()" style="background: none; border: none;">
+      <title>( ͡° ͜ʖ ͡°) - Lenny Face to Clipboard</title>
+      <div id="counter" style=" position: absolute;
+         left: 50%;
+         ">Copied {{counter.count}} times</div>
+      <button  style="background: none; border: none;">
          <div id="face" style="font-size: 200px;
             position: fixed;
             top: 50%;
@@ -11,14 +14,25 @@
             margin-left: -200px;">( ͡° ͜ʖ ͡°)</div>
       </button>
       <script>
-         function myFunction() {
-           const btn = document.getElementById('face');
-           btn.addEventListener('click', function onClick(event) {
-           const randomColor = Math.floor(Math.random()*16777215).toString(16);
-         document.body.style.backgroundColor = "#" + randomColor;
+         const btn = document.getElementById('face');
+         const counter = document.getElementById('counter');
+         btn.addEventListener('click', async _ => {
+             try {
+                 const response = await fetch('{{ domain }}/increase', {
+                     method: 'post'
+                 });
+                 const data = await response.json().then(data => ({
+                     count: data.count
+                 }));
+                 console.log('Completed!', data.count);
+                 counter.textContent = "Copied " + data.count + " times";
+                 const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+                 document.body.style.backgroundColor = "#" + randomColor;
+                 navigator.clipboard.writeText("( ͡° ͜ʖ ͡°)");
+             } catch (err) {
+                 console.error(`Error: ${err}`);
+             };
          });
-           navigator.clipboard.writeText("( ͡° ͜ʖ ͡°)");
-         }
       </script>
    </body>
 </html>
